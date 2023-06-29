@@ -55,8 +55,8 @@ function getJSON(obj) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -114,33 +114,51 @@ function fromJSON(/* proto, json */) {
  *  For more examples see unit tests.
  */
 
+// class cssSelectorBuilderClass {
+
+//   // eslint-disable-next-line no-useless-constructor
+//   constructor() {
+//     /* empty */
+//   }
+
+//   static Element(itm) {
+
+//   }
+// }
+
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  arr: [],
+
+  element(value) {
+    return this.arr.push(value);
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    return this.arr.push(`#${value}`);
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    return this.arr.push(`.${value}`);
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    return this.arr.push(`[${value}]`);
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    return this.arr.push(`:${value}`);
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    return this.arr.push(`::${value}`);
   },
 
   combine(/* selector1, combinator, selector2 */) {
     throw new Error('Not implemented');
+  },
+
+  stringify() {
+    return this.arr.join('');
   },
 };
 
