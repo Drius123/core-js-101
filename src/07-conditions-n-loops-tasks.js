@@ -164,8 +164,14 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  // const radiusX = [circle.radius - circle.center.x,
+  // circle.radius + circle.center.x].sort((a, b));
+  // const radiusY = [circle.radius - circle.center.y, circle.radius + circle.center.y];
+  if (point.x < (circle.center.x + circle.radius) && point.y < (circle.center.y + circle.radius)) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -366,8 +372,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -406,8 +412,20 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const res = [];
+  for (let row1 = 0; row1 < m1.length; row1 += 1) {
+    const row = [];
+    for (let row2 = 0; row2 < m2[0].length; row2 += 1) {
+      const itm = [];
+      for (let item = 0; item < m1[row1].length; item += 1) {
+        itm.push(m1[row1][item] * m2[item][row2]);
+      }
+      row.push(itm.reduce((x, y) => x + y, 0));
+    }
+    res.push(row);
+  }
+  return res;
 }
 
 
@@ -441,8 +459,37 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  let res;
+  position.forEach((item, index, arr) => {
+    if ((item.every((x) => x === 'X') || item.every((x) => x === '0')) && item.length === 3) {
+      const result = item[0];
+      res = result;
+    }
+    if (index === 0) {
+      if (item[0] === arr[index + 1][0] && item[0] === arr[index + 2][0]) {
+        const result = item[0];
+        res = result;
+      }
+      if (item[1] === arr[index + 1][1] && item[1] === arr[index + 2][1]) {
+        const result = item[1];
+        res = result;
+      }
+      if (item[2] === arr[index + 1][2] && item[2] === arr[index + 2][2]) {
+        const result = item[2];
+        res = result;
+      }
+      if (item[0] === arr[index + 1][1] && item[0] === arr[index + 2][2]) {
+        const result = item[0];
+        res = result;
+      }
+      if (item[2] === arr[index + 1][1] && item[2] === arr[index + 2][0]) {
+        const result = item[2];
+        res = result;
+      }
+    }
+  });
+  return res;
 }
 
 
